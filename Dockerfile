@@ -13,14 +13,19 @@ yum install -y make gcc nmap-ncat libc6-dev tcl && yum clean all
 
 WORKDIR /tmp/
 
-RUN curl https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.0.tar.gz -o /tmp/ruby-2.3.0.tar.gz && \
-echo "ba5ba60e5f1aa21b4ef8e9bf35b9ddb57286cb546aac4b5a28c71f459467e507 /tmp/ruby-2.3.0.tar.gz" > /tmp/ruby-2.3.0-sha256sum && \
-sha256sum -c /tmp/ruby-2.3.0-sha256sum && \
-tar xf /tmp/ruby-2.3.0.tar.gz && \
-/tmp/ruby-2.3.0/configure && \
-make && \
-sudo make install && \
-rm -rf /tmp/*
+RUN yum install gcc-c++ patch readline readline-devel zlib zlib-devel && \
+yum install libyaml-devel libffi-devel openssl-devel make && \
+yum install bzip2 autoconf automake libtool bison iconv-devel sqlite-devel
+
+RUN  curl -sSL https://rvm.io/mpapis.asc | gpg --import - && \
+curl -L get.rvm.io | bash -s stable && \
+source /etc/profile.d/rvm.sh && \
+rvm reload && \
+rvm requirements run && \
+rvm install 2.2.4 && \
+rvm use 2.2.4 --default && \
+ruby --version
+
 
 #RUN echo "151.101.64.70 rubygems.org">> /etc/hosts && \
 RUN gem install redis
