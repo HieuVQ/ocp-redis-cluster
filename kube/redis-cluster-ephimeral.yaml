@@ -95,7 +95,7 @@ objects:
     source:
       type: Git
       git:
-        uri: https://github.com/makentenza/ocp-redis-cluster.git
+        uri: https://github.com/rickoliveira1/ocp-redis-cluster.git
     strategy:
       type: "Docker"
       dockerStrategy:
