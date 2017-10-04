@@ -9,24 +9,13 @@ LABEL io.k8s.description="3 Node Redis Cluster" \
 RUN groupadd -r redis && useradd -r -g redis -d /home/redis -m redis
 
 RUN yum update -y && \
-yum install -y gcc nmap-ncat libc6-dev tcl && yum clean all
+yum install -y make gcc nmap-ncat libc6-dev tcl && yum clean all
 
-RUN yum install gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison iconv-devel sqlite-devel -y && yum clean all
-
-WORKDIR /tmp/
-
-RUN  curl -sSL https://rvm.io/mpapis.asc | gpg --import - && \
-curl -L get.rvm.io | bash -s stable && \
-source /etc/profile.d/rvm.sh && \
-rvm reload && \
-rvm requirements run && \
-rvm install 2.2.4 && \
-rvm use 2.2.4 --default && \
-ruby --version
-
-
-#RUN echo "151.101.64.70 rubygems.org">> /etc/hosts && \
-RUN gem install redis
+RUN yum install centos-release-scl -y && \
+yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+yum install rh-ruby23 -y && \
+scl enable rh-ruby23 bash && \
+gem install redis
 
 WORKDIR /usr/local/src/
 
