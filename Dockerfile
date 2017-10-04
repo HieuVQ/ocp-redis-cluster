@@ -11,8 +11,7 @@ RUN groupadd -r redis && useradd -r -g redis -d /home/redis -m redis
 RUN yum update -y && \
 yum install -y gcc nmap-ncat libc6-dev tcl && yum clean all
 
-RUN yum install gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison iconv-devel sqlite-devel && \
-yum clean all
+RUN yum install gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison iconv-devel sqlite-devel -y && yum clean all
 
 WORKDIR /tmp/
 
