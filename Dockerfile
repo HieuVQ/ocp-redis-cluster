@@ -22,8 +22,8 @@ make && \
 make install && \
 rm -rf /tmp/*
 
-RUN echo "151.101.64.70 rubygems.org">> /etc/hosts && \
-gem install redis
+#RUN echo "151.101.64.70 rubygems.org">> /etc/hosts && \
+RUN gem install redis
 
 WORKDIR /usr/local/src/
 
