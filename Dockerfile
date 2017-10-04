@@ -13,9 +13,11 @@ yum install -y make gcc nmap-ncat libc6-dev tcl && yum clean all
 
 RUN yum install centos-release-scl -y && \
 yum-config-manager --enable rhel-server-rhscl-7-rpms && \
-yum install rh-ruby23 -y && \
-scl enable rh-ruby23 bash && \
-gem install redis
+yum install rh-ruby23 -y && yum clean all
+
+RUN scl enable rh-ruby23 bash
+
+RUN gem install redis
 
 WORKDIR /usr/local/src/
 
