@@ -9,13 +9,12 @@ LABEL io.k8s.description="3 Node Redis Cluster" \
 RUN groupadd -r redis && useradd -r -g redis -d /home/redis -m redis
 
 RUN yum update -y && \
-yum install -y make gcc nmap-ncat libc6-dev tcl && yum clean all
+yum install -y gcc nmap-ncat libc6-dev tcl && yum clean all
+
+RUN yum install gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison iconv-devel sqlite-devel && \
+yum clean all
 
 WORKDIR /tmp/
-
-RUN yum install gcc-c++ patch readline readline-devel zlib zlib-devel && \
-yum install libyaml-devel libffi-devel openssl-devel make && \
-yum install bzip2 autoconf automake libtool bison iconv-devel sqlite-devel
 
 RUN  curl -sSL https://rvm.io/mpapis.asc | gpg --import - && \
 curl -L get.rvm.io | bash -s stable && \
