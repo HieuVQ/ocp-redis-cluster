@@ -17,7 +17,7 @@ RUN yum -y install gdbm-devel libdb4-devel libffi-devel libyaml libyaml-devel nc
 
 WORKDIR /tmp
 
-mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} && \
+RUN mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} && \
 wget http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.gz -P rpmbuild/SOURCES && \
 wget https://raw.githubusercontent.com/tjinjin/automate-ruby-rpm/master/ruby22x.spec -P rpmbuild/SPECS && \
 rpmbuild -bb rpmbuild/SPECS/ruby22x.spec && \
