@@ -9,20 +9,27 @@ LABEL io.k8s.description="3 Node Redis Cluster" \
 RUN groupadd -r redis && useradd -r -g redis -d /home/redis -m redis
 
 RUN yum update -y && \
-yum install -y make gcc nmap-ncat libc6-dev tcl && yum clean all
+yum install -y make gcc nmap-ncat libc6-dev tcl wget && yum clean all
 
-RUN yum install centos-release-scl -y && \
-yum-config-manager --enable rhel-server-rhscl-7-rpms && \
-yum install rh-ruby23 -y && yum clean all
+RUN yum -y group install "Development Tools"
 
-RUN scl enable rh-ruby23 bash && gem install redis
+RUN yum -y install gdbm-devel libdb4-devel libffi-devel libyaml libyaml-devel ncurses-devel openssl-devel readline-devel tcl-devel
+
+WORKDIR /tmp
+
+mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} && \
+wget http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.gz -P rpmbuild/SOURCES && \
+wget https://raw.githubusercontent.com/tjinjin/automate-ruby-rpm/master/ruby22x.spec -P rpmbuild/SPECS && \
+rpmbuild -bb rpmbuild/SPECS/ruby22x.spec && \
+yum -y localinstall rpmbuild/RPMS/x86_64/ruby-2.2.3-1.el7.centos.x86_64.rpm
 
 WORKDIR /usr/local/src/
 
 RUN curl -o redis-stable.tar.gz http://download.redis.io/redis-stable.tar.gz && \
 tar xzf redis-stable.tar.gz && \
 cd redis-stable && \
-make MALLOC=libc
+make MALLOC=libc && \
+gem install redis
 
 RUN for file in $(grep -r --exclude=*.h --exclude=*.o /usr/local/src/redis-stable/src | awk {'print $3'}); do cp $file /usr/local/bin; done && \
 cp /usr/local/src/redis-stable/src/redis-trib.rb /usr/local/bin && \
