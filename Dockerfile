@@ -40,7 +40,6 @@ COPY src/redis.conf /usr/local/etc/redis.conf
 COPY src/*.sh /usr/local/bin/
 COPY src/redis-trib.rb /usr/local/bin/
 
-
 RUN mkdir /data && chown redis:redis /data && \
 chown -R redis:redis /usr/local/bin/ && \
 chown -R redis:redis /usr/local/etc/ && \
