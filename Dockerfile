@@ -9,7 +9,7 @@ LABEL io.k8s.description="3 Node Redis Cluster" \
 RUN groupadd -r redis && useradd -r -g redis -d /home/redis -m redis
 
 RUN yum update -y && \
-yum install -y make gcc nmap-ncat libc6-dev tcl wget && yum clean all
+yum install -y make gcc rubygems nmap-ncat wget && yum clean all && yum clean all
 
 RUN yum -y group install "Development Tools"
 
@@ -22,29 +22,28 @@ wget https://raw.githubusercontent.com/tjinjin/automate-ruby-rpm/master/ruby22x.
 rpmbuild -bb /root/rpmbuild/SPECS/ruby22x.spec && \
 yum -y localinstall /root/rpmbuild/RPMS/x86_64/ruby-2.2.3-1.el7.centos.x86_64.rpm
 
+RUN gem install redis
+
 WORKDIR /usr/local/src/
 
-RUN curl -o redis-stable.tar.gz http://download.redis.io/redis-stable.tar.gz && \
-tar xzf redis-stable.tar.gz && \
-cd redis-stable && \
-make MALLOC=libc && \
-gem install redis
+RUN curl -o redis-3.2.6.tar.gz http://download.redis.io/releases/redis-3.2.6.tar.gz && \
+tar xzf redis-3.2.6.tar.gz && \
+cd redis-3.2.6 && \
+make MALLOC=libc
 
-RUN for file in $(grep -r --exclude=*.h --exclude=*.o /usr/local/src/redis-stable/src | awk {'print $3'}); do cp $file /usr/local/bin; done && \
-cp /usr/local/src/redis-stable/src/redis-trib.rb /usr/local/bin && \
-cp -r /usr/local/src/redis-stable/utils /usr/local/bin && \
+RUN for file in $(grep -r --exclude=*.h --exclude=*.o /usr/local/src/redis-3.2.6/src | awk {'print $3'}); do cp $file /usr/local/bin; done && \
+cp /usr/local/src/redis-3.2.6/src/redis-trib.rb /usr/local/bin && \
+cp -r /usr/local/src/redis-3.2.6/utils /usr/local/bin && \
 rm -rf /usr/local/src/redis*
 
 COPY src/redis.conf /usr/local/etc/redis.conf
 COPY src/*.sh /usr/local/bin/
 COPY src/redis-trib.rb /usr/local/bin/
 
+
 RUN mkdir /data && chown redis:redis /data && \
-chmod -R 777 / && \
 chown -R redis:redis /usr/local/bin/ && \
 chown -R redis:redis /usr/local/etc/ && \
-chown -R redis:redis /usr/local/src/ && \
-chmod -R 777 /usr/local && \
 chmod +x /usr/local/bin/cluster-init.sh /usr/local/bin/redis-trib.rb
 
 VOLUME /data
