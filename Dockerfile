@@ -9,7 +9,7 @@ LABEL io.k8s.description="3 Node Redis Cluster" \
 RUN groupadd -r redis && useradd -r -g redis -d /home/redis -m redis
 
 RUN yum update -y && \
-yum install -y make gcc rubygems nmap-ncat wget && yum clean all && yum clean all
+yum install -y make gcc nmap-ncat wget && yum clean all && yum clean all
 
 RUN yum -y group install "Development Tools"
 
