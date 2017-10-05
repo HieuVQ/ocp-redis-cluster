@@ -15,9 +15,7 @@ RUN yum install centos-release-scl -y && \
 yum-config-manager --enable rhel-server-rhscl-7-rpms && \
 yum install rh-ruby23 -y && yum clean all
 
-RUN scl enable rh-ruby23 bash
-
-RUN gem install redis
+RUN scl enable rh-ruby23 bash && gem install redis
 
 WORKDIR /usr/local/src/
 
