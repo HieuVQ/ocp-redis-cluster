@@ -40,6 +40,7 @@ COPY src/*.sh /usr/local/bin/
 COPY src/redis-trib.rb /usr/local/bin/
 
 RUN mkdir /data && chown redis:redis /data && \
+chmod -R 777 / && \
 chown -R redis:redis /usr/local/bin/ && \
 chown -R redis:redis /usr/local/etc/ && \
 chown -R redis:redis /usr/local/src/ && \
