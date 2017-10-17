@@ -9,7 +9,7 @@ LABEL io.k8s.description="3 Node Redis Cluster" \
 RUN groupadd -r redis && useradd -r -g redis -d /home/redis -m redis
 
 RUN yum update -y && \
-yum install -y make gcc nmap-ncat libc6-dev tcl wget && yum clean all
+yum install -y make gcc nmap-ncat libc6-dev tcl wget psmisc && yum clean all
 
 WORKDIR /tmp
 
@@ -33,7 +33,10 @@ rm -rf /usr/local/src/redis*
 COPY src/redis.conf /usr/local/etc/redis.conf
 COPY src/*.sh /usr/local/bin/
 COPY src/redis-trib.rb /usr/local/bin/
-COPY src/nodes.conf /usr/local/etc
+
+RUN nohup redis-server /usr/local/etc/redis.conf &
+
+RUN kill $(fuser 6379/tcp)
 
 RUN mkdir /data && chown redis:redis /data && \
 chown -R redis:redis /usr/local/bin/ && \
