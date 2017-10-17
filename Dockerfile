@@ -36,7 +36,7 @@ COPY src/redis-trib.rb /usr/local/bin/
 
 RUN nohup redis-server /usr/local/etc/redis.conf &
 
-RUN kill $(fuser 6379/tcp)
+RUN kill $(/usr/sbin/fuser 6379/tcp)
 
 RUN mkdir /data && chown redis:redis /data && \
 chown -R redis:redis /usr/local/bin/ && \
