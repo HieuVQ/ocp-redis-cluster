@@ -7,8 +7,8 @@ NODE1=$NODE1_IP":6379"
 NODE2=$NODE2_IP":6379"
 NODE3=$NODE3_IP":6379"
 
-sleep 50
+sleep 90
 
 /usr/local/bin/redis-trib.rb create $NODE1 $NODE2 $NODE3
-
+echo RICARDO
 exit 0
