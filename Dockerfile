@@ -9,7 +9,7 @@ LABEL io.k8s.description="3 Node Redis Cluster" \
 RUN groupadd -r redis && useradd -r -g redis -d /home/redis -m redis
 
 RUN yum update -y && \
-yum install -y make gcc nmap-ncat libc6-dev tcl wget psmisc && yum clean all
+yum install -y make gcc nmap-ncat libc6-dev tcl wget && yum clean all
 
 WORKDIR /tmp
 
@@ -30,25 +30,24 @@ cp /usr/local/src/redis-stable/src/redis-trib.rb /usr/local/bin && \
 cp -r /usr/local/src/redis-stable/utils /usr/local/bin && \
 rm -rf /usr/local/src/redis*
 
-
+COPY src/redis.conf /usr/local/etc/redis.conf
 COPY src/*.sh /usr/local/bin/
 COPY src/redis-trib.rb /usr/local/bin/
+COPY src/nodes.conf /usr/local/etc
 
 RUN mkdir /data && chown redis:redis /data && \
-chown -R redis:redis /usr/local && \
-chmod -R 777 /usr/local && \
+chown -R redis:redis /usr/local/bin/ && \
+chown -R redis:redis /usr/local/etc/ && \
+chown -R redis:redis /usr/local/src
+
+chmod -R 777 /usr/local/etc
 chmod +x /usr/local/bin/cluster-init.sh /usr/local/bin/redis-trib.rb
 
-VOLUME /data
-WORKDIR /data
-
-RUN mkdir /redis
-COPY src/redis.conf /redis/redis.conf
-RUN chown -R redis:redis /redis && \
-chmod -R 777 /redis
+WORKDIR /usr/local/etc
 
 USER redis
 
 EXPOSE 6379 16379
 
-CMD [ "redis-server", "/redis/redis.conf" ]
+CMD [ "redis-server", "/usr/local/etc/redis.conf" ]
+
