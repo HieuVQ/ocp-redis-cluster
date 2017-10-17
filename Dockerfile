@@ -45,8 +45,6 @@ chmod +x /usr/local/bin/cluster-init.sh /usr/local/bin/redis-trib.rb
 VOLUME /data
 WORKDIR /data
 
-USER redis
-
 EXPOSE 6379 16379
 
 CMD [ "redis-server", "/usr/local/etc/redis.conf" ]
