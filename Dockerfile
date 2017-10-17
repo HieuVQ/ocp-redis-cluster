@@ -15,7 +15,7 @@ WORKDIR /tmp
 
 COPY src/ruby-2.2.3-1.el7.centos.x86_64.rpm/ /tmp/
 
-yum -y /tmp/ruby-2.2.3-1.el7.centos.x86_64.rpm
+RUN yum -y localinstall /tmp/ruby-2.2.3-1.el7.centos.x86_64.rpm
 
 WORKDIR /usr/local/src/
 
