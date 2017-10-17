@@ -30,7 +30,7 @@ cp /usr/local/src/redis-stable/src/redis-trib.rb /usr/local/bin && \
 cp -r /usr/local/src/redis-stable/utils /usr/local/bin && \
 rm -rf /usr/local/src/redis*
 
-COPY src/redis.conf /usr/local/etc/redis.conf
+
 COPY src/*.sh /usr/local/bin/
 COPY src/redis-trib.rb /usr/local/bin/
 
@@ -44,6 +44,9 @@ WORKDIR /data
 
 USER redis
 
+RUN mkdir /redis
+COPY src/redis.conf /redis/redis.conf
+
 EXPOSE 6379 16379
 
-CMD [ "redis-server", "/usr/local/etc/redis.conf" ]
+CMD [ "redis-server", "/redis/redis.conf" ]
