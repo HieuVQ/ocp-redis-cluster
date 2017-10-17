@@ -49,9 +49,6 @@ chmod -R 777 /redis
 
 USER redis
 
-RUN mkdir /redis
-COPY src/redis.conf /redis/redis.conf
-
 EXPOSE 6379 16379
 
 CMD [ "redis-server", "/redis/redis.conf" ]
