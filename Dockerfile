@@ -38,8 +38,7 @@ COPY src/nodes.conf /usr/local/etc
 RUN mkdir /data && chown redis:redis /data && \
 chown -R redis:redis /usr/local/bin/ && \
 chown -R redis:redis /usr/local/etc/ && \
-chown -R redis:redis /usr/local/src
-
+chown -R redis:redis /usr/local/src && \
 chmod -R 777 /usr/local/etc && \
 chmod +x /usr/local/bin/cluster-init.sh /usr/local/bin/redis-trib.rb
 
