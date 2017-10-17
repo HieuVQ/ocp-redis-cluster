@@ -42,6 +42,11 @@ chmod +x /usr/local/bin/cluster-init.sh /usr/local/bin/redis-trib.rb
 VOLUME /data
 WORKDIR /data
 
+RUN mkdir /redis
+COPY src/redis.conf /redis/redis.conf
+RUN chown -R redis:redis /redis && \
+chmod -R 777 /redis
+
 USER redis
 
 RUN mkdir /redis
