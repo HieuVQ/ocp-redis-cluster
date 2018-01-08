@@ -8,7 +8,7 @@ The objetive for this repository is to deploy a Redis Cluster on top of Openshif
 
 2. Import the template from source
 
-        # oc create -f https://raw.githubusercontent.com/hieuvq/ocp-redis-cluster/master/kube/redis-cluster-ephimeral.yaml
+        # oc create -f https://raw.githubusercontent.com/hieuvq/ocp-redis-cluster/master/kube/redis-cluster-ephemeral-6.yaml
 
 3. Create the new application from the imported template
 
