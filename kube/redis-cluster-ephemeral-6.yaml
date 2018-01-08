@@ -8,7 +8,7 @@ metadata:
     description: Redis 6 Cluster Node Ephemeral
     iconClass: icon-mysql-database
     tags: redis-cluster
-  name: redis-cluster-ephemeral
+  name: redis-cluster-ephemeral-6
   namespace: openshift
 objects:
 - apiVersion: v1
