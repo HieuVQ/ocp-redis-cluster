@@ -1,7 +1,7 @@
 FROM centos:7
-MAINTAINER Ricardo Santos <rc.ricardosantos@outlook.com>
+MAINTAINER Hieu Vo <voquochieu1908@gmail.com>
 
-LABEL io.k8s.description="3 Node Redis Cluster" \
+LABEL io.k8s.description="6 Node Redis Cluster" \
       io.k8s.display-name="Redis Cluster" \
       io.openshift.expose-services="6379:tcp" \
       io.openshift.tags="redis-cluster"
