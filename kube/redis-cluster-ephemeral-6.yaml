@@ -162,7 +162,7 @@ objects:
   metadata:
     name: "redis-cluster-node01"
   spec:
-    replicas: 1
+   
     template:
       metadata:
         labels:
@@ -200,7 +200,7 @@ objects:
   metadata:
     name: "redis-cluster-node02"
   spec:
-    replicas: 1
+    
     template:
       metadata:
         labels:
@@ -238,7 +238,7 @@ objects:
   metadata:
     name: "redis-cluster-node03"
   spec:
-    replicas: 1
+    
     template:
       metadata:
         labels:
@@ -276,7 +276,7 @@ objects:
   metadata:
     name: "redis-cluster-node04"
   spec:
-    replicas: 1
+    
     template:
       metadata:
         labels:
@@ -314,7 +314,7 @@ objects:
   metadata:
     name: "redis-cluster-node05"
   spec:
-    replicas: 1
+    
     template:
       metadata:
         labels:
@@ -352,7 +352,7 @@ objects:
   metadata:
     name: "redis-cluster-node06"
   spec:
-    replicas: 1
+    
     template:
       metadata:
         labels:
